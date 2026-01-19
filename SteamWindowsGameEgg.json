@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "version": "PTDL_v2",
+    "update_url": null
+  },
+  "name": "SteamCmd Windows Dedicated Server Egg",
+  "author": "ir3nicuz@local.host",
+  "description": "A generic Egg for SteamCmd Dedicated Server started with wine docker image.",
+  "features": [
+    "docker_64bit", "pid_limit"
+  ],
+  "docker_images": {
+    "ghcr.io/parkervcp/yolks:wine_staging": "ghcr.io/parkervcp/yolks:wine_staging",
+    "ghcr.io/parkervcp/yolks:wine_latest": "ghcr.io/parkervcp/yolks:wine_latest"
+  },
+  "startup": "wine {{STEAMGAME_PATHTOEXE}} {{STEAMGAME_STARTUPPARAMS}}",
+  "config": {
+    "files": "{}",
+    "startup": "{\"done\": \".*\"}",
+    "logs": "{}",
+    "stop": "^C",
+    "container_stop_timeout": 30
+  },
+  "scripts": {
+    "installation": {
+      "script": "#!/bin/bash\n steamcmd",
+      "container": "ghcr.io/ir3nicuz/pterodactyl-steamcmd-installer:latest",
+      "entrypoint": "bash"
+    }
+  },
+  "variables": [
+    {
+      "name": "Steam Game AppID",
+      "description": "This is the app id for the Dedicated Server Files Package on SteamDB.",
+      "env_variable": "STEAMGAME_APPID",
+      "default_value": "294420",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "required|string|max:10",
+      "field_type": "text"
+    },
+    {
+      "name": "Path to Dedicated Server Exe",
+      "description": "This is the relative path within the container to the Exe.",
+      "env_variable": "STEAMGAME_PATHTOEXE",
+      "default_value": "7DaysToDieServer.exe",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "required|string|max:200",
+      "field_type": "text"
+    },
+    {
+      "name": "Startup Parameter for Dedicated Server Exe",
+      "description": "Defining all required startup parameters. Relative Paths will normally be routed from the Game-Engine to Container_root.",
+      "env_variable": "STEAMGAME_STARTUPPARAMS",
+      "default_value": "-logfile=7D2D.log -configfile=serverconfig.xml -batchmode -nographics -dedicated",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "required|string|max:500",
+      "field_type": "text"
+    },
+    {
+      "name": "Experimental Selector",
+      "description": "Selecting to use experimental build instead of stable build",
+      "env_variable": "STEAMGAME_USEEXPERIMENTAL",
+      "default_value": "0",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "required|boolean",
+      "field_type": "boolean"
+    }
+  ]
+}
