@@ -5,7 +5,7 @@ on:
     branches: ["main"] # Startet bei jeder Änderung am Main-Branch
     paths:
       - 'DockerFile'   # Startet nur, wenn sich das Dockerfile ändert
-  workflow_dispatch:
+  workflow_dispatch:   # Das hier fügt den manuellen Button hinzu!
 
 jobs:
   build-and-push:
