@@ -23,7 +23,7 @@
   },
   "scripts": {
     "installation": {
-      "script": "#!/bin/bash\n steamcmd",
+      "script": "steamcmd",
       "container": "ghcr.io/ir3nicuz/pterodactyl-steamcmd-installer:latest",
       "entrypoint": "bash"
     }
