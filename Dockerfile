@@ -65,12 +65,8 @@ echo -e "${GREENSUCCESSTAG} Variables validation done!"
 echo -e "${BLUEINFOTAG} Starting SteamCmd install/update of Steam Id ${STEAMGAME_APPID} ..."
 
 # --- Installation ---
-/opt/steamcmd/steamcmd.sh \
-    +force_install_dir /mnt/server \
-    +@sSteamCmdForcePlatformType windows \
-    +login anonymous \
-    +app_update "${STEAMGAME_APPID}" ${STEAMGAME_USEEXPERIMENTAL_COMMAND} -validate \
-    +quit \
+/opt/steamcmd/steamcmd.sh +force_install_dir /mnt/server +@sSteamCmdForcePlatformType windows +login anonymous +app_update "${STEAMGAME_APPID}" ${STEAMGAME_USEEXPERIMENTAL_COMMAND} -validate +quit
+
 echo -e "${GREENSUCCESSTAG} SteamCmd install/update done!"
 EOF
 
