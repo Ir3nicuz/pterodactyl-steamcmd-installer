@@ -4,10 +4,9 @@
 # use debian 12 as basic image
 FROM debian:bookworm-slim
 
+# Initials
 ARG ARG_BUILD_NUMBER=-1
 ENV ENV_BUILD_NUMBER=${ARG_BUILD_NUMBER}
-
-# Install silently with standard options
 ENV DEBIAN_FRONTEND=noninteractive
 
 # SteamCmd dependencies integration
@@ -31,15 +30,16 @@ RUN /opt/steamcmd/steamcmd.sh +login anonymous +quit || true
 #RUN cat << 'EOF' > /usr/local/bin/steamcmd
 RUN <<'EOF' cat > /usr/local/bin/steamcmd
 #!/bin/bash
+
 # Text marker colors
 REDERRORTAG='\e[31m[ERROR]\e[0m'
 GREENSUCCESSTAG='\e[32m[SUCCESS]\e[0m'
 YELLOWWARNINGTAG='\e[33m[WARNING]\e[0m'
 BLUEINFOTAG='\e[34m[INFO]\e[0m'
 
+# startup
+sleep 3
 echo -e "${BLUEINFOTAG} Starting steamcmd script (Build-Rev: ${ENV_BUILD_NUMBER}) ..."
-
-# activate abort on error
 set -e
 
 # --- Validation ---
