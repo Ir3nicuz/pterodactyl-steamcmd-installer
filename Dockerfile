@@ -58,11 +58,9 @@ fi
 echo -e "${GREENSUCCESSTAG} Variables validation done!"
 
 # --- Build SteamCmd arguments
-
-echo -e "${YELLOWWARNINGTAG} "${STEAMGAME_FORCEVERSION}""
-
 STEAM_CMD_ARGS="+force_install_dir /mnt/server +@sSteamCmdForcePlatformType windows +login anonymous +app_update ${STEAMGAME_APPID}"
 if ! [[ -z "${STEAMGAME_FORCEVERSION}" ]]; then
+    echo -e "${YELLOWWARNINGTAG} Using Game Server Beta Branch ${STEAMGAME_FORCEVERSION}"
     STEAM_CMD_ARGS="${STEAM_CMD_ARGS} -beta ${STEAMGAME_FORCEVERSION}"
 fi
 STEAM_CMD_ARGS="${STEAM_CMD_ARGS} -validate +quit"
