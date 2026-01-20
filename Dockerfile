@@ -38,7 +38,7 @@ YELLOWWARNINGTAG='\e[33m[WARNING]\e[0m'
 BLUEINFOTAG='\e[34m[INFO]\e[0m'
 
 # startup
-sleep 3
+sleep 1
 echo -e "${BLUEINFOTAG} Starting steamcmd script (Build-Rev: ${ENV_BUILD_NUMBER}) ..."
 set -e
 
@@ -51,29 +51,19 @@ if ! [[ "${STEAMGAME_APPID}" =~ ^[0-9]+$ ]]; then
     echo -e "${REDERRORTAG} Variable STEAMGAME_APPID '${STEAMGAME_APPID}' is not a valid id!"
     exit 1
 fi
-if [[ -z "${STEAMGAME_USEEXPERIMENTAL}" ]]; then
-    echo -e "${REDERRORTAG} Variable STEAMGAME_USEEXPERIMENTAL not set!"
-    exit 1
-fi
-if ! [[ "${STEAMGAME_USEEXPERIMENTAL}" =~ ^[0-1]$ ]]; then
-    echo -e "${REDERRORTAG} Variable STEAMGAME_USEEXPERIMENTAL '${STEAMGAME_USEEXPERIMENTAL}' must be 0 or 1!"
+if [[ "${STEAMGAME_FORCEVERSION+defined}" != "defined" ]]; then
+    echo -e "${REDERRORTAG} Variable STEAMGAME_FORCEVERSION not set!"
     exit 1
 fi
 echo -e "${GREENSUCCESSTAG} Variables validation done!"
 
 # --- Build SteamCmd arguments
-
-
-
-STEAM_CMD_ARGS="+force_install_dir /mnt/server +@sSteamCmdForcePlatformType windows +login anonymous +app_update 1007 +app_update ${STEAMGAME_APPID}"
-if [[ "${STEAMGAME_USEEXPERIMENTAL}" == "1" ]]; then
-    STEAM_CMD_ARGS="${STEAM_CMD_ARGS} -beta latest_experimental"
+STEAM_CMD_ARGS="+force_install_dir /mnt/server +@sSteamCmdForcePlatformType windows +login anonymous +app_update ${STEAMGAME_APPID}"
+if ! [[ -z "${STEAMGAME_FORCEVERSION}" ]]; then
+    STEAM_CMD_ARGS="${STEAM_CMD_ARGS} -beta ${STEAMGAME_FORCEVERSION}"
 fi
-STEAM_CMD_ARGS="${STEAM_CMD_ARGS} validate +quit"
+STEAM_CMD_ARGS="${STEAM_CMD_ARGS} -validate +quit"
 echo -e "${BLUEINFOTAG} Build SteamCmd Args: ${STEAM_CMD_ARGS}"
-
-
-
 
 # --- Installation ---
 echo -e "${BLUEINFOTAG} Starting SteamCmd install/update of Steam Id ${STEAMGAME_APPID} ..."
