@@ -64,13 +64,8 @@ echo -e "${GREENSUCCESSTAG} Variables validation done!"
 # --- Build SteamCmd arguments
 
 
-STEAM_CMD_PRELOAD_ARGS="+login anonymous +app_info_update 1 +app_info_print ${STEAMGAME_APPID} +quit"
-/opt/steamcmd/steamcmd.sh ${STEAM_CMD_PRELOAD_ARGS}
-sleep 2
-echo -e "${GREENSUCCESSTAG} SteamCmd cache update done!"
 
-
-STEAM_CMD_ARGS="+force_install_dir /mnt/server +@sSteamCmdForcePlatformType windows +login anonymous +app_update ${STEAMGAME_APPID}"
+STEAM_CMD_ARGS="+force_install_dir /mnt/server +@sSteamCmdForcePlatformType windows +login anonymous +app_update 1007 +app_update ${STEAMGAME_APPID}"
 if [[ "${STEAMGAME_USEEXPERIMENTAL}" == "1" ]]; then
     STEAM_CMD_ARGS="${STEAM_CMD_ARGS} -beta latest_experimental"
 fi
