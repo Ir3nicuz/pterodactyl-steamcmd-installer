@@ -60,14 +60,14 @@
       "field_type": "text"
     },
     {
-      "name": "Experimental Selector",
-      "description": "Selecting to use experimental build instead of stable build",
-      "env_variable": "STEAMGAME_USEEXPERIMENTAL",
-      "default_value": "0",
+      "name": "Force Server Version",
+      "description": "Setting a special server version tag for doanload, set empty to get latest stable",
+      "env_variable": "STEAMGAME_FORCEVERSION",
+      "default_value": "",
       "user_viewable": true,
       "user_editable": true,
-      "rules": "required|boolean",
-      "field_type": "boolean"
+      "rules": "string|max:100",
+      "field_type": "text"
     }
   ]
 }
