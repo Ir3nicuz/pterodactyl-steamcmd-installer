@@ -8,10 +8,6 @@ FROM debian:bookworm-slim
 ARG ARG_BUILD_NUMBER=-1
 ENV ENV_BUILD_NUMBER=${ARG_BUILD_NUMBER}
 ENV DEBIAN_FRONTEND=noninteractive
-ENV WINEARCH=win64
-ENV WINEPREFIX=/home/container/.wine
-ENV WINEDEBUG=-all
-ENV WINEDLLOVERRIDES="winealsa.drv,winemmoe.drv=d"
 
 # SteamCmd and Wings dependencies integration
 RUN apt update && apt install -y \
@@ -21,10 +17,7 @@ RUN apt update && apt install -y \
     lib32stdc++6 \
     tar \
     locales \
-    libasound2 \
-    libasound2-plugins \
-    alsa-utils \
-    && locale-gen en_US.UTF-8 && apt-get clean
+    && locale-gen en_US.UTF-8
 
 # SteamCMD-Manifest donwload and place in /opt/steamcmd
 RUN mkdir -p /opt/steamcmd \
@@ -32,9 +25,6 @@ RUN mkdir -p /opt/steamcmd \
 
 # SteamCMD-Binaries donwload and dependency test
 RUN /opt/steamcmd/steamcmd.sh +login anonymous +quit || true
-
-# wine initialisation
-RUN wineboot -u && wineserver -w
 
 # Here-Doc definition of install script as steamcmd
 #RUN cat << 'EOF' > /usr/local/bin/steamcmd
@@ -66,6 +56,34 @@ if [[ "${STEAMGAME_FORCEVERSION+defined}" != "defined" ]]; then
     exit 1
 fi
 echo -e "${GREENSUCCESSTAG} Variables validation done!"
+
+
+
+
+
+
+
+echo -e "${BLUEINFOTAG} Wine initializing ..."
+
+# Diese Befehle laufen auf der gemounteten Festplatte
+export WINEARCH=win64
+export WINEPREFIX=/home/container/.wine
+export WINEDEBUG=-all
+
+# Wine-Präfix erstellen (einmalig während der Installation)
+wineboot -u
+
+# Warten, bis der Wine-Server fertig ist
+wineserver -w
+
+echo -e "${GREENSUCCESSTAG} Wine ready!"
+
+
+
+
+
+
+
 
 # --- Build SteamCmd arguments
 STEAM_CMD_ARGS="+force_install_dir /mnt/server +@sSteamCmdForcePlatformType windows +login anonymous +app_update ${STEAMGAME_APPID}"
