@@ -57,34 +57,6 @@ if [[ "${STEAMGAME_FORCEVERSION+defined}" != "defined" ]]; then
 fi
 echo -e "${GREENSUCCESSTAG} Variables validation done!"
 
-
-
-
-
-
-
-echo -e "${BLUEINFOTAG} Wine initializing ..."
-
-# Diese Befehle laufen auf der gemounteten Festplatte
-export WINEARCH=win64
-export WINEPREFIX=/home/container/.wine
-export WINEDEBUG=-all
-
-# Wine-Präfix erstellen (einmalig während der Installation)
-wineboot -u
-
-# Warten, bis der Wine-Server fertig ist
-wineserver -w
-
-echo -e "${GREENSUCCESSTAG} Wine ready!"
-
-
-
-
-
-
-
-
 # --- Build SteamCmd arguments
 STEAM_CMD_ARGS="+force_install_dir /mnt/server +@sSteamCmdForcePlatformType windows +login anonymous +app_update ${STEAMGAME_APPID}"
 if ! [[ -z "${STEAMGAME_FORCEVERSION}" ]]; then
