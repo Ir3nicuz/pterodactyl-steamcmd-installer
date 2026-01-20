@@ -8,8 +8,12 @@ FROM debian:bookworm-slim
 ARG ARG_BUILD_NUMBER=-1
 ENV ENV_BUILD_NUMBER=${ARG_BUILD_NUMBER}
 ENV DEBIAN_FRONTEND=noninteractive
+ENV WINEARCH=win64
+ENV WINEPREFIX=/home/container/.wine
+ENV WINEDEBUG=-all
+ENV WINEDLLOVERRIDES="winealsa.drv,winemmoe.drv=d"
 
-# SteamCmd dependencies integration
+# SteamCmd and Wings dependencies integration
 RUN apt update && apt install -y \
     curl \
     ca-certificates \
@@ -17,7 +21,10 @@ RUN apt update && apt install -y \
     lib32stdc++6 \
     tar \
     locales \
-    && locale-gen en_US.UTF-8
+    libasound2 \
+    libasound2-plugins \
+    alsa-utils \
+    && locale-gen en_US.UTF-8 && apt-get clean
 
 # SteamCMD-Manifest donwload and place in /opt/steamcmd
 RUN mkdir -p /opt/steamcmd \
@@ -25,6 +32,9 @@ RUN mkdir -p /opt/steamcmd \
 
 # SteamCMD-Binaries donwload and dependency test
 RUN /opt/steamcmd/steamcmd.sh +login anonymous +quit || true
+
+# wine initialisation
+RUN wineboot -u && wineserver -w
 
 # Here-Doc definition of install script as steamcmd
 #RUN cat << 'EOF' > /usr/local/bin/steamcmd
