@@ -59,16 +59,18 @@ if ! [[ "${STEAMGAME_USEEXPERIMENTAL}" =~ ^[0-1]$ ]]; then
     echo -e "${REDERRORTAG} Variable STEAMGAME_USEEXPERIMENTAL '${STEAMGAME_USEEXPERIMENTAL}' must be 0 or 1!"
     exit 1
 fi
-STEAMGAME_USEEXPERIMENTAL_COMMAND=''
-if [[ "${STEAMGAME_USEEXPERIMENTAL}" == "1" ]]; then
-    STEAMGAME_USEEXPERIMENTAL_COMMAND='-beta latest_experimental'
-fi
-
 echo -e "${GREENSUCCESSTAG} Variables validation done!"
-echo -e "${BLUEINFOTAG} Starting SteamCmd install/update of Steam Id ${STEAMGAME_APPID} ..."
+
+STEAM_CMD_ARGS="+force_install_dir /mnt/server +@sSteamCmdForcePlatformType windows +login anonymous +app_update ${STEAMGAME_APPID}"
+if [[ "${STEAMGAME_USEEXPERIMENTAL}" == "1" ]]; then
+    STEAM_CMD_ARGS="${STEAM_CMD_ARGS} -beta latest_experimental"
+fi
+STEAM_CMD_ARGS="${STEAM_CMD_ARGS} validate +quit"
+echo -e "${GREENSUCCESSTAG} Build SteamCmd Args done: ${STEAM_CMD_ARGS}"
 
 # --- Installation ---
-/opt/steamcmd/steamcmd.sh +force_install_dir /mnt/server +@sSteamCmdForcePlatformType windows +login anonymous +app_update "${STEAMGAME_APPID}" ${STEAMGAME_USEEXPERIMENTAL_COMMAND} -validate +quit
+echo -e "${BLUEINFOTAG} Starting SteamCmd install/update of Steam Id ${STEAMGAME_APPID} ..."
+/opt/steamcmd/steamcmd.sh ${STEAM_CMD_ARGS}
 
 echo -e "${GREENSUCCESSTAG} SteamCmd install/update done!"
 EOF
