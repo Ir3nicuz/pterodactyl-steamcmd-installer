@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-# ^^^ Diese Zeile MUSS ganz oben stehen! Sie aktiviert das Heredoc-Feature.
+# ^^^ This line must be the first in the script to activate the Heredoc-Feature.
 
 # use debian 12 as basic image
 FROM debian:bookworm-slim
@@ -61,12 +61,13 @@ if ! [[ "${STEAMGAME_USEEXPERIMENTAL}" =~ ^[0-1]$ ]]; then
 fi
 echo -e "${GREENSUCCESSTAG} Variables validation done!"
 
-STEAM_CMD_ARGS="+force_install_dir /mnt/server +@sSteamCmdForcePlatformType windows +login anonymous +app_update ${STEAMGAME_APPID}"
+# --- Build SteamCmd arguments
+STEAM_CMD_ARGS="+force_install_dir /mnt/server +app_info_update 1 +app_info_print ${STEAMGAME_APPID} +@sSteamCmdForcePlatformType windows +login anonymous +app_update ${STEAMGAME_APPID}"
 if [[ "${STEAMGAME_USEEXPERIMENTAL}" == "1" ]]; then
     STEAM_CMD_ARGS="${STEAM_CMD_ARGS} -beta latest_experimental"
 fi
 STEAM_CMD_ARGS="${STEAM_CMD_ARGS} validate +quit"
-echo -e "${GREENSUCCESSTAG} Build SteamCmd Args done: ${STEAM_CMD_ARGS}"
+echo -e "${BLUEINFOTAG} Build SteamCmd Args: ${STEAM_CMD_ARGS}"
 
 # --- Installation ---
 echo -e "${BLUEINFOTAG} Starting SteamCmd install/update of Steam Id ${STEAMGAME_APPID} ..."
