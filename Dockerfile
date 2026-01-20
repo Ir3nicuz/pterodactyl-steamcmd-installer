@@ -4,6 +4,9 @@
 # use debian 12 as basic image
 FROM debian:bookworm-slim
 
+ARG ARG_BUILD_NUMBER=-1
+ENV ENV_BUILD_NUMBER=${ARG_BUILD_NUMBER}
+
 # Install silently with standard options
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -34,7 +37,7 @@ GREENSUCCESSTAG='\e[32m[SUCCESS]\e[0m'
 YELLOWWARNINGTAG='\e[33m[WARNING]\e[0m'
 BLUEINFOTAG='\e[34m[INFO]\e[0m'
 
-echo -e "${BLUEINFOTAG} Starting steamcmd script ..."
+echo -e "${BLUEINFOTAG} Starting steamcmd script (Build-Rev: ${ENV_BUILD_NUMBER}) ..."
 
 # activate abort on error
 set -e
