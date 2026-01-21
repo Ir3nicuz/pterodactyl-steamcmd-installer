@@ -11,11 +11,9 @@
   ],
   "docker_images": {
     "ghcr.io/ir3nicuz/pterodactyl-winestaging-runner:latest": "ghcr.io/ir3nicuz/pterodactyl-winestaging-runner:latest",
-    "ghcr.io/ir3nicuz/pterodactyl-winelatest-runner:latest": "ghcr.io/ir3nicuz/pterodactyl-winelatest-runner:latest",
-    "ghcr.io/parkervcp/yolks:wine_staging": "ghcr.io/parkervcp/yolks:wine_staging",
-    "ghcr.io/parkervcp/yolks:wine_latest": "ghcr.io/parkervcp/yolks:wine_latest"
+    "ghcr.io/ir3nicuz/pterodactyl-winelatest-runner:latest": "ghcr.io/ir3nicuz/pterodactyl-winelatest-runner:latest"
   },
-  "startup": "wine {{STEAMGAME_PATHTOEXE}} {{STEAMGAME_STARTUPPARAMS}}",
+  "startup": "launch",
   "config": {
     "files": "{}",
     "startup": "{\"done\": \".*\"}",
