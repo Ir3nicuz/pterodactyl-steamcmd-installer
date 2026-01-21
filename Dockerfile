@@ -10,7 +10,7 @@ ENV ENV_BUILD_NUMBER=${ARG_BUILD_NUMBER}
 ENV DEBIAN_FRONTEND=noninteractive
 
 # SteamCmd and Wings dependencies integration
-RUN apt update && apt install -y \
+RUN apt update && apt install -y --no-install-recommends \
     curl \
     ca-certificates \
     lib32gcc-s1 \
