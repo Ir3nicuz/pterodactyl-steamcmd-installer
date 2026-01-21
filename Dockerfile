@@ -17,7 +17,8 @@ RUN apt update && apt install -y --no-install-recommends \
     lib32stdc++6 \
     tar \
     locales \
-    && locale-gen en_US.UTF-8
+    && locale-gen en_US.UTF-8 \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # SteamCMD-Manifest donwload and place in /opt/steamcmd
 RUN mkdir -p /opt/steamcmd \
