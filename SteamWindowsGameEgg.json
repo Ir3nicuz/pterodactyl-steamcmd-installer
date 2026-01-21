@@ -53,7 +53,7 @@
       "name": "Startup Parameter for Dedicated Server Exe",
       "description": "Defining all required startup parameters. Relative Paths will normally be routed from the Game-Engine to Container_root.",
       "env_variable": "STEAMGAME_STARTUPPARAMS",
-      "default_value": "-logfile=7D2D.log -configfile=serverconfig.xml -batchmode -nographics -dedicated",
+      "default_value": "-logfile=7D2D.log -configfile=serverconfig.xml -batchmode -nographics -dedicated -nosound",
       "user_viewable": true,
       "user_editable": true,
       "rules": "required|string|max:500",
