@@ -10,8 +10,8 @@
     "docker_64bit", "pid_limit"
   ],
   "docker_images": {
-    "ghcr.io/ir3nicuz/pterodactyl-winestaging-runner:latest": "ghcr.io/ir3nicuz/pterodactyl-winestaging-runner:latest",
-    "ghcr.io/ir3nicuz/pterodactyl-winelatest-runner:latest": "ghcr.io/ir3nicuz/pterodactyl-winelatest-runner:latest"
+    "ghcr.io/ir3nicuz/pterodactyl-winelatest-runner:latest": "ghcr.io/ir3nicuz/pterodactyl-winelatest-runner:latest",
+    "ghcr.io/ir3nicuz/pterodactyl-winestaging-runner:latest": "ghcr.io/ir3nicuz/pterodactyl-winestaging-runner:latest"
   },
   "startup": "launch",
   "config": {
@@ -68,6 +68,16 @@
       "user_editable": true,
       "rules": "nullable|string|max:100",
       "field_type": "text"
+    },
+    {
+      "name": "Simulating virtual Monitor (Xvfb)",
+      "description": "Setting up a virtual monitor for the server tool to be happy to have one. For Servers complaining about missing graphics devices",
+      "env_variable": "STEAMGAME_USEVIRTUALMONITOR",
+      "default_value": "1",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "required|boolean",
+      "field_type": "boolean"
     }
   ]
 }
