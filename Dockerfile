@@ -63,6 +63,8 @@ STEAM_CMD_ARGS="+force_install_dir /mnt/server +@sSteamCmdForcePlatformType wind
 if ! [[ -z "${STEAMGAME_FORCEVERSION}" ]]; then
     echo -e "${YELLOWWARNINGTAG} Using Game Server Beta Branch ${STEAMGAME_FORCEVERSION}"
     STEAM_CMD_ARGS="${STEAM_CMD_ARGS} -beta ${STEAMGAME_FORCEVERSION}"
+else
+    STEAM_CMD_ARGS="${STEAM_CMD_ARGS} -beta public"
 fi
 STEAM_CMD_ARGS="${STEAM_CMD_ARGS} -validate +quit"
 echo -e "${BLUEINFOTAG} Build SteamCmd Args: ${STEAM_CMD_ARGS}"
