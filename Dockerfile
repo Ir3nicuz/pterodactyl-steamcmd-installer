@@ -69,7 +69,7 @@ echo -e "${BLUEINFOTAG} Build SteamCmd Args: ${STEAM_CMD_ARGS}"
 
 # --- Installation ---
 echo -e "${BLUEINFOTAG} Starting SteamCmd install/update of Steam Id ${STEAMGAME_APPID} ..."
-/opt/steamcmd/steamcmd.sh ${STEAM_CMD_ARGS}
+stdbuf -oL -eL /opt/steamcmd/steamcmd.sh ${STEAM_CMD_ARGS} 2>&1
 
 echo -e "${GREENSUCCESSTAG} SteamCmd install/update done!"
 EOF
