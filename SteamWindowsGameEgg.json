@@ -16,7 +16,7 @@
   "startup": "launch",
   "config": {
     "files": "{}",
-    "startup": "{\"done\": \"(?i)^.*(ready|started|listening|done|v\\d+\\.\\d+).*\"}",
+    "startup": "{\"done\": \"regex:(?i).*(ready|started|listening|done).*\"}",
     "logs": "{}",
     "stop": "^C",
     "container_stop_timeout": 30
